@@ -1,6 +1,6 @@
 # ImagesHelper
 
-#This project would help you to organize your persnal images (i.e photos of your family). Simple by enable search by date/title/...To add 
+#This project would help you to organize your personal images (i.e photos of your family). Simple by enable search by date/title/...To add 
 #This project is the backend for another project.
 
 #Rough plan of the this API:
