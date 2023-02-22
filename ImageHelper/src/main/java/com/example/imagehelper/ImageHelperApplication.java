@@ -1,11 +1,7 @@
 package com.example.imagehelper;
 
-import com.example.imagehelper.model.User;
-import com.example.imagehelper.repository.UserRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ImageHelperApplication {
@@ -16,11 +12,5 @@ public class ImageHelperApplication {
 
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(UserRepository userRepository) {
-        return args -> {
-            userRepository.count();
-        };
-    }
 
 }

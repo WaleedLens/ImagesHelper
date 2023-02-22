@@ -1,6 +1,7 @@
 package com.example.imagehelper.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -12,11 +13,13 @@ public class User {
     private Integer id;
     private String firstname;
     private String lastname;
+    @Column("avatarPointer")
     private String avatarPointer;
+    @Column("createdAt")
+
     private LocalDateTime createdAt;
 
-    public User() {
-    }
+
 
     public User(String firstname, String lastname, String avatarPointer) {
 
