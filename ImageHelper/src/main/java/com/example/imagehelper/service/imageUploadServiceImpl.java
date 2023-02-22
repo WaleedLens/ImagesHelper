@@ -8,6 +8,8 @@ import java.io.File;
 public class imageUploadServiceImpl implements ImageUploadService{
 
 
+
+
     @Override
     public void uploadSingleImage(File file) {
 
@@ -15,6 +17,8 @@ public class imageUploadServiceImpl implements ImageUploadService{
 
     @Override
     public void uploadMultiImages() {
+        //userRepository.save(new User("User","name","codeavatar26631154"));
+        System.out.println("Saved");
 
     }
 }
