@@ -1,4 +1,4 @@
-package com.example.imagehelper.config;
+package com.example.imagehelper.auth;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

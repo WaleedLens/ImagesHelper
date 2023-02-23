@@ -1,6 +1,6 @@
 package com.example.imagehelper;
 
-import com.example.imagehelper.config.RsaKeyProperties;
+import com.example.imagehelper.auth.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

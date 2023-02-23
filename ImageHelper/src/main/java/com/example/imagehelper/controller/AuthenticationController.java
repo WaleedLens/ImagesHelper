@@ -1,5 +1,6 @@
 package com.example.imagehelper.controller;
 
+import com.example.imagehelper.auth.AuthenticationProvidedHelper;
 import com.example.imagehelper.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,9 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String loginUser(Authentication authentication){
         log.debug("TOKEN requested for user '{}'",authentication.getName());
+        System.out.println("I found you!");
         String token = tokenService.generateToken(authentication);
+
         log.debug("Your token has been generated successfully ! '{}'",token);
         return token;
 

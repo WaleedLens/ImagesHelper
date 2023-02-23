@@ -3,6 +3,7 @@ package com.example.imagehelper.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -22,30 +23,42 @@ public class User {
     private LocalDateTime createdAt;
 
 
-
-    public User(String firstname, String lastname, String username,String avatarPointer) {
+    public User(String firstname, String lastname, String password, String username, String avatarPointer) {
 
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
-        this.avatarPointer = avatarPointer;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+        this.avatarPointer = (avatarPointer == null ? "default.png" : avatarPointer) ;
         this.createdAt = LocalDateTime.now();
     }
 
+
+
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        id = id;
     }
 
     public String getUsername() {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setId(Integer id) {
-        id = id;
+    public void setPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getFirstname() {
@@ -83,14 +96,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", username='" + username + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", avatarPointer='" + avatarPointer + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+        return "User{" + "id=" + id + ", firstname='" + firstname + '\'' + ", username='" + username + '\'' + ", lastname='" + lastname + '\'' + ", avatarPointer='" + avatarPointer + '\'' + ", createdAt=" + createdAt + '}';
     }
 }
 
