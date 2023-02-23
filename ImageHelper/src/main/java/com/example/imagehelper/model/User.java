@@ -13,6 +13,7 @@ public class User {
     private Integer id;
     private String firstname;
     private String username;
+    private String password;
     private String lastname;
     @Column("avatarPointer")
     private String avatarPointer;

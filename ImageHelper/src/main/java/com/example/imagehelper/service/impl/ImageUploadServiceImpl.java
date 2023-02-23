@@ -1,4 +1,4 @@
-package com.example.imagehelper.service;
+package com.example.imagehelper.service.impl;
 
 import com.example.imagehelper.core.utils.FileUtils;
 import com.example.imagehelper.core.utils.ImageTypes;
@@ -6,6 +6,7 @@ import com.example.imagehelper.model.Image;
 import com.example.imagehelper.model.User;
 import com.example.imagehelper.repository.ImageRepository;
 import com.example.imagehelper.repository.UserRepository;
+import com.example.imagehelper.service.ImageUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,23 +34,35 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @param singleThumbnail
      */
     @Override
-    public void uploadSingleImage(MultipartFile singleThumbnail) throws IOException {
-        uploadImage(singleThumbnail,ImageTypes.THUMBNAIL);
+    public void uploadSingleImage(MultipartFile singleThumbnail){
+        try {
+            uploadImage(singleThumbnail,ImageTypes.THUMBNAIL);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
 
     @Override
-    public void uploadMultiImages(MultipartFile[] multiImages) throws IOException {
+    public void uploadMultiImages(MultipartFile[] multiImages)  {
         for (MultipartFile singleImage : multiImages) {
-            uploadImage(singleImage,ImageTypes.THUMBNAIL);
+            try {
+                uploadImage(singleImage,ImageTypes.THUMBNAIL);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
 
     @Override
-    public void uploadAvatar(MultipartFile avatarImage) throws IOException {
-        uploadImage(avatarImage,ImageTypes.AVATAR);
+    public void uploadAvatar(MultipartFile avatarImage) {
+        try {
+            uploadImage(avatarImage,ImageTypes.AVATAR);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

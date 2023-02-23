@@ -8,9 +8,9 @@ import java.io.InputStream;
 
 public interface ImageUploadService {
 
-    void uploadSingleImage(MultipartFile singleThumbnail) throws IOException;
+    void uploadSingleImage(MultipartFile singleThumbnail);
 
-    void uploadMultiImages(MultipartFile[] multiImages) throws IOException;
+    void uploadMultiImages(MultipartFile[] multiImages);
 
-    void uploadAvatar(MultipartFile avatarImage) throws IOException;
+    void uploadAvatar(MultipartFile avatarImage);
 }
