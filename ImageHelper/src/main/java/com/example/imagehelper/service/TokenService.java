@@ -25,7 +25,7 @@ public class TokenService {
         for(GrantedAuthority grantedAuthority:authentication.getAuthorities()){
             scope = scope + grantedAuthority.getAuthority() + " ";
         }
-        scope = scope.substring(0,scope.length()-2);
+
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(instant)
