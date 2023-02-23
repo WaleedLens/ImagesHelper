@@ -4,9 +4,12 @@ import com.example.imagehelper.repository.UserRepository;
 import com.example.imagehelper.service.ImageUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @Slf4j
@@ -29,19 +32,32 @@ public class ImageUploadController {
      */
     @PostMapping("/single")
     public ResponseEntity uploadSingleImage(@RequestParam("images")MultipartFile singleImage){
+        try {
 
-        return null;
+            imageUploadService.uploadSingleImage(singleImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/multi")
-    public ResponseEntity uploadMultiImages(@RequestParam("images")MultipartFile multiImages){
-
-        return null;
+    public ResponseEntity uploadMultiImages(@RequestParam("images")MultipartFile[] multiImages){
+        try {
+            imageUploadService.uploadMultiImages(multiImages);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok().build();
     }
-    @GetMapping("/test")
-    public void test(){
-        imageUploadService.uploadMultiImages();
-
+    @PostMapping("/avatar")
+    public ResponseEntity uploadAvatar(@RequestParam("avatar") MultipartFile avatarImage){
+        try {
+            imageUploadService.uploadAvatar(avatarImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 

@@ -16,16 +16,15 @@ public class Image {
     private String thumbnailPointer;
     @Column("userId")
     private Integer userId;
-    @Column("createdAt")
-    private LocalDateTime createdAt;
+
     @Column("imageType")
     private ImageTypes imageType;
 
 
-    public Image(String thumbnailPointer, Integer userId, LocalDateTime createdAt, ImageTypes imageType) {
+    public Image(String thumbnailPointer, Integer userId, ImageTypes imageType) {
         this.thumbnailPointer = thumbnailPointer;
         this.userId = userId;
-        this.createdAt = LocalDateTime.now();
+      //  this.createdAt = LocalDateTime.now();
         this.imageType = imageType;
     }
 
@@ -53,11 +52,13 @@ public class Image {
         this.userId = userId;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", thumbnailPointer='" + thumbnailPointer + '\'' +
+                ", userId=" + userId +
+                ", imageType=" + imageType +
+                '}';
     }
 }

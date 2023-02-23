@@ -12,6 +12,7 @@ public class User {
     @Id
     private Integer id;
     private String firstname;
+    private String username;
     private String lastname;
     @Column("avatarPointer")
     private String avatarPointer;
@@ -21,16 +22,25 @@ public class User {
 
 
 
-    public User(String firstname, String lastname, String avatarPointer) {
+    public User(String firstname, String lastname, String username,String avatarPointer) {
 
         this.firstname = firstname;
         this.lastname = lastname;
+        this.username = username;
         this.avatarPointer = avatarPointer;
         this.createdAt = LocalDateTime.now();
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setId(Integer id) {
@@ -72,7 +82,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "Id=" + id + ", firstname='" + firstname + '\'' + ", lastname='" + lastname + '\'' + ", avatarPointer='" + avatarPointer + '\'' + ", createdAt=" + createdAt + '}';
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", username='" + username + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", avatarPointer='" + avatarPointer + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
 

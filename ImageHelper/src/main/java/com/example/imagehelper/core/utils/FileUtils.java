@@ -42,27 +42,37 @@ public class FileUtils {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < 10; i++) {
             randomString = randomString + (alphabet.charAt(r.nextInt(alphabet.length())));
-            randomNumber = randomNumber + r.nextLong(1234567890);
+            randomNumber = randomNumber + 395*r.nextLong();
         }
         String uniquePointer = randomNumber + randomString;
         log.info("Generated Unique Pointer: " + uniquePointer);
         return uniquePointer;
     }
+
     /**
-     * Save given image-name & path
-     *
-     * @param imgname
+     * @param contentImage
+     * @param path
      */
-    public void saveImage(byte[] contentImage, String imgname, String path) {
+    public static void saveImage(byte[] contentImage, String path) {
 
 
-        try (FileOutputStream out = new FileOutputStream(new File(path + imgname))) {
+        try (FileOutputStream out = new FileOutputStream(new File(path))) {
 
             out.write(contentImage);
 
         } catch (IOException e) {
-            log.error("Unable to save given file: " + path + imgname);
+            log.error("Unable to save given file: " + path);
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static String getExtension(String filename){
+
+        return "."+filename.split("\\.")[1];
+    }
+
+    public static boolean isImage(String description){
+        return false;
     }
 }
