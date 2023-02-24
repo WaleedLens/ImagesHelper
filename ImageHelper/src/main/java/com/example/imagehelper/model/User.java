@@ -27,7 +27,6 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
-
         this.password = password;
         this.avatarPointer = (avatarPointer == null ? "default.png" : avatarPointer);
         this.createdAt = LocalDateTime.now();

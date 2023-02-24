@@ -19,6 +19,11 @@ public class TokenService {
         this.jwtEncoder = jwtEncoder;
     }
 
+    /**
+     * Generate Bearer Token / JWT Token
+     * @param authentication
+     * @return
+     */
     public String generateToken(Authentication authentication) {
         Instant instant = Instant.now();
         String scope = "";
@@ -29,7 +34,7 @@ public class TokenService {
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(instant)
-                .expiresAt(instant.plus(1, ChronoUnit.HOURS))
+                .expiresAt(instant.plus(1, ChronoUnit.HOURS)) //make token expires after 1 hour
                 .subject(authentication.getName())
                 .claim("scope",scope).build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();

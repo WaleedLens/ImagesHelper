@@ -10,21 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthenticationController {
+public class AuthController {
     private final TokenService tokenService;
 
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-    public AuthenticationController(TokenService tokenService) {
+    public AuthController(TokenService tokenService) {
         this.tokenService = tokenService;
     }
 
+    /**
+     * If Authentication is succeeded then generate JWT token
+     * @param authentication
+     * @return JWT token/Bearer Token
+     */
     @GetMapping("/login")
     public String loginUser(Authentication authentication){
         if(authentication.isAuthenticated()) {
             log.debug("TOKEN requested for user '{}'", authentication.getName());
-            System.out.println("I found you!");
-            String token = tokenService.generateToken(authentication);
+            String token = tokenService.generateToken(authentication); //Generate token
 
             log.debug("Your token has been generated successfully ! '{}'", token);
             return token;

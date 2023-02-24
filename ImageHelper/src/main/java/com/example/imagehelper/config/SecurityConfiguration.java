@@ -39,14 +39,7 @@ public class SecurityConfiguration {
 
     }
 
-    @Bean
-    public AuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider provider =
-                new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(this.userService);
-        return provider;
-    }
+
     /**
      * Secure REST endpoints
      *
@@ -62,7 +55,6 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth.antMatchers("/api/auth/login", "/api/user/register").permitAll().anyRequest().authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                .authenticationProvider(daoAuthenticationProvider())
                 .httpBasic().and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
