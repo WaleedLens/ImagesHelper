@@ -12,6 +12,8 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -22,6 +24,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -36,7 +39,14 @@ public class SecurityConfiguration {
 
     }
 
-
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider =
+                new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(this.userService);
+        return provider;
+    }
     /**
      * Secure REST endpoints
      *
@@ -47,11 +57,12 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+        BasicAuthenticationFilter t;
         return http
-                .csrf(csrf -> csrf.ignoringAntMatchers("/api/auth/login", "/api/user/register"))
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth.antMatchers("/api/auth/login", "/api/user/register").permitAll().anyRequest().authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .authenticationProvider(daoAuthenticationProvider())
                 .httpBasic().and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
@@ -71,8 +82,8 @@ public class SecurityConfiguration {
     }
 
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+   @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
+   }
 }
