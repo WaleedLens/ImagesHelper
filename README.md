@@ -1,13 +1,7 @@
-# ImagesHelper
+ImageHelper API:
 
-#This project would help you to organize your personal images (i.e photos of your family). Simple by enable search by date/title/...To add 
-#This project is the backend for another project.
-
-#Rough plan of the this API:
-1- Enable authentication of users
-2- Each user has space to store his images & he can create directory if he which
-3- Images shall be organized based on dates (e.g., 3 images from 2023 dec 21)
-4- By default Images can not be shared between users. But we may allow that multiple users can share images among them.
+Brief Description:
+The idea of this  project is to help end-users to manage their personal photos by organize them. This can be done by allowing end-users to create folders and save images  in those folders , OR photos can be organized in given month/year/week.Further enhancement would be done in this project (e.g., enhance search in photos/folders)
 
 
-#  We may add additional features later on...
+To complete...
