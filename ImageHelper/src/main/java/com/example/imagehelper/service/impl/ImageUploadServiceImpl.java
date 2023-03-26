@@ -24,8 +24,6 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     public ImageUploadServiceImpl(UserRepository userRepository, ImageRepository imageRepository) {
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
-
-        // userRepository.save(new User("foo","boo","dard","default.png"));
     }
 
     /**
@@ -43,7 +41,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
 
     }
-
+    /**
+     * Instruct uploadImage to upload  multi images <--- Check this later?
+     * @param multiImages
+     */
     @Override
     public void uploadMultiImages(MultipartFile[] multiImages)  {
         for (MultipartFile singleImage : multiImages) {
@@ -55,7 +56,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         }
     }
 
-
+    /**
+     * Instruct uploadImage to upload  avatar
+     * @param avatarImage
+     */
     @Override
     public void uploadAvatar(MultipartFile avatarImage) {
         try {
@@ -66,8 +70,12 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
 
-
-
+    /**
+     * Upload given image in database and store that image in file based on type (avatar/thumbnail)
+     * @param image This should be multipart File coming from end-user (Received by REST endpoint)
+     * @param type This can be thumbnail or avatar ( see ImageType enum )
+     * @throws IOException
+     */
     public void uploadImage(MultipartFile image,ImageTypes type) throws IOException {
         String uniquePointer = FileUtils.uniqueTokenPointer(image.getOriginalFilename()); //Get unique pointer
 
