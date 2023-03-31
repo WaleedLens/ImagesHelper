@@ -1,5 +1,6 @@
 package com.example.imagehelper.core.utils;
 
+import com.example.imagehelper.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -7,6 +8,9 @@ import org.springframework.core.io.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Slf4j
@@ -33,7 +37,8 @@ public class FileUtils {
      *
      * @param imagename
      * @return
-     */
+
+
     public static String uniqueTokenPointer(String imagename) {
         String randomString = "";
         long randomNumber = -1;
@@ -42,11 +47,39 @@ public class FileUtils {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < 10; i++) {
             randomString = randomString + (alphabet.charAt(r.nextInt(alphabet.length())));
-            randomNumber = randomNumber + 395*r.nextLong();
+            randomNumber = randomNumber + 395 * r.nextLong();
         }
         String uniquePointer = randomNumber + randomString;
         log.info("Generated Unique Pointer: " + uniquePointer);
         return uniquePointer;
+    }
+     */
+    public static String generateHash(String imagename){
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            // of an input digest() return array of byte
+            byte[] messageDigest = md.digest(imagename.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -66,13 +99,31 @@ public class FileUtils {
         }
     }
 
-
-    public static String getExtension(String filename){
-
-        return "."+filename.split("\\.")[1];
+    /**
+     * Returns array of strings. each string represent name of file in given DIR name. [Useful for testing]
+     *
+     * @param name <--Directory Name
+     * @return
+     */
+    public static String[] contentDirectory(String name) {
+        try {
+            System.out.println(getResourcesPath() + name);
+            String[] content = new File(getResourcesPath() +"/"+ name).list();
+            System.out.println("Number of files " + content.length + " in " + name + " directory.");
+            return content;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//C:\Users\PC\Documents\GitHub\swe363\ImagesHelper\ImageHelper\target\classes\avatars
     }
 
-    public static boolean isImage(String description){
+
+    public static String getExtension(String filename) {
+
+        return "." + filename.split("\\.")[1];
+    }
+
+    public static boolean isImage(String description) {
         return false;
     }
 }

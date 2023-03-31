@@ -77,7 +77,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @throws IOException
      */
     public void uploadImage(MultipartFile image,ImageTypes type) throws IOException {
-        String uniquePointer = FileUtils.uniqueTokenPointer(image.getOriginalFilename()); //Get unique pointer
+        String uniquePointer = FileUtils.generateHash(image.getOriginalFilename()); //Get unique pointer
 
         String description = image.getContentType() + ":" + image.getOriginalFilename() + ":" + image.getSize(); //Get detail description of image
 
@@ -85,7 +85,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         int id = user.getId();
         String imagePath = FileUtils.getResourcesPath() + "thumbnails/" + uniquePointer + FileUtils.getExtension(image.getOriginalFilename()); //Init path
         FileUtils.saveImage(image.getBytes(), imagePath); //Save image in given path
-        imageRepository.save(new Image(uniquePointer, id, type)); //Save image pointer in db
+        imageRepository.save(new Image(uniquePointer, id, type,"default")); //Save image pointer in db
         log.info("new image uploaded & saved in db successfully!-userID:" + id + " Description:" + description);
     }
 }

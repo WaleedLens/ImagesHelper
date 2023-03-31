@@ -21,7 +21,7 @@ public class Image {
     private ImageTypes imageType;
 
 
-    public Image(String thumbnailPointer, Integer userId, ImageTypes imageType) {
+    public Image(String thumbnailPointer, Integer userId, ImageTypes imageType,String albumName) {
         this.thumbnailPointer = thumbnailPointer;
         this.userId = userId;
       //  this.createdAt = LocalDateTime.now();
