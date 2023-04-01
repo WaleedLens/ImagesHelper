@@ -20,6 +20,7 @@ public class Album {
     public Album(Set<User> users, String name) {
         this.users = users;
         this.name = name;
+
     }
 
     @Override
