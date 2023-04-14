@@ -18,7 +18,6 @@ public class User {
     @Column("avatarPointer")
     private String avatarPointer;
     @Column("createdAt")
-
     private LocalDateTime createdAt;
 
 

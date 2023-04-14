@@ -14,18 +14,18 @@ public class Image {
     private Integer id;
     @Column("thumbnailPointer")
     private String thumbnailPointer;
-    @Column("userId")
-    private Integer userId;
+    @Column("album_id")
+    private Integer albumId;
 
     @Column("imageType")
     private ImageTypes imageType;
 
 
-    public Image(String thumbnailPointer, Integer userId, ImageTypes imageType,String albumName) {
+    public Image(String thumbnailPointer, Integer albumId, ImageTypes imageType) {
         this.thumbnailPointer = thumbnailPointer;
-        this.userId = userId;
       //  this.createdAt = LocalDateTime.now();
         this.imageType = imageType;
+        this.albumId = albumId;
     }
 
     public Integer getId() {
@@ -44,12 +44,12 @@ public class Image {
         this.thumbnailPointer = thumbnailPointer;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getAlbumId() {
+        return albumId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAlbumId(Integer albumId) {
+        this.albumId = albumId;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Image {
         return "Image{" +
                 "id=" + id +
                 ", thumbnailPointer='" + thumbnailPointer + '\'' +
-                ", userId=" + userId +
+                ", albumId=" + albumId +
                 ", imageType=" + imageType +
                 '}';
     }

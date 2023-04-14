@@ -12,22 +12,37 @@ public class Album {
     @Id
     private Integer id;
 
-    @MappedCollection(idColumn = "user_id")
-    private Set<User> users;
     @Column("name")
     private String name;
+    @Column("user_id")
+    private Integer userId;
 
-    public Album(Set<User> users, String name) {
-        this.users = users;
+    public Album( String name,Integer userId) {
         this.name = name;
+        this.userId = userId;
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Album{" +
                 "id=" + id +
-                "Users count=" + users.size() +
                 ", name='" + name + '\'' +
                 '}';
     }

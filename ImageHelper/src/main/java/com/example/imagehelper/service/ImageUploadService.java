@@ -9,9 +9,9 @@ import java.io.InputStream;
 
 public interface ImageUploadService {
 
-    void uploadSingleImage(MultipartFile singleThumbnail, Authentication authentication);
+    void uploadSingleImage(MultipartFile singleThumbnail, String username);
 
-    void uploadMultiImages(MultipartFile[] multiImages, Authentication authentication);
+    void uploadMultiImages(MultipartFile[] multiImages, String username);
 
-    void uploadAvatar(MultipartFile avatarImage, Authentication authentication);
+    void uploadAvatar(MultipartFile avatarImage, String username);
 }
