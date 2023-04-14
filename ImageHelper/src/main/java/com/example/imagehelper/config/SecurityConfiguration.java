@@ -12,8 +12,6 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -50,7 +48,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        BasicAuthenticationFilter t;
+
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth.antMatchers("/api/auth/login", "/api/user/register").permitAll().anyRequest().authenticated())
@@ -74,8 +72,8 @@ public class SecurityConfiguration {
     }
 
 
-   @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-   }
+    }
 }

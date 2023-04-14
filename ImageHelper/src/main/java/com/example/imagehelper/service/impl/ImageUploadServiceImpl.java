@@ -9,6 +9,7 @@ import com.example.imagehelper.repository.UserRepository;
 import com.example.imagehelper.service.ImageUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class ImageUploadServiceImpl implements ImageUploadService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+
 
     @Autowired
     public ImageUploadServiceImpl(UserRepository userRepository, ImageRepository imageRepository) {
@@ -32,9 +34,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @param singleThumbnail
      */
     @Override
-    public void uploadSingleImage(MultipartFile singleThumbnail){
+    public void uploadSingleImage(MultipartFile singleThumbnail, Authentication authentication){
         try {
-            uploadImage(singleThumbnail,ImageTypes.THUMBNAIL);
+            uploadImage(singleThumbnail,ImageTypes.THUMBNAIL,authentication.getName());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -46,10 +48,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @param multiImages
      */
     @Override
-    public void uploadMultiImages(MultipartFile[] multiImages)  {
+    public void uploadMultiImages(MultipartFile[] multiImages, Authentication authentication)  {
         for (MultipartFile singleImage : multiImages) {
             try {
-                uploadImage(singleImage,ImageTypes.THUMBNAIL);
+                uploadImage(singleImage,ImageTypes.THUMBNAIL,authentication.getName());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -61,9 +63,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @param avatarImage
      */
     @Override
-    public void uploadAvatar(MultipartFile avatarImage) {
+    public void uploadAvatar(MultipartFile avatarImage, Authentication authentication) {
         try {
-            uploadImage(avatarImage,ImageTypes.AVATAR);
+            uploadImage(avatarImage,ImageTypes.AVATAR,authentication.getName());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -76,12 +78,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
      * @param type This can be thumbnail or avatar ( see ImageType enum )
      * @throws IOException
      */
-    public void uploadImage(MultipartFile image,ImageTypes type) throws IOException {
+    public void uploadImage(MultipartFile image,ImageTypes type,String username) throws IOException {
         String uniquePointer = FileUtils.generateHash(image.getOriginalFilename()); //Get unique pointer
 
         String description = image.getContentType() + ":" + image.getOriginalFilename() + ":" + image.getSize(); //Get detail description of image
-
-        User user = userRepository.getUserByUsername("root"); //Get User information
+        User user = userRepository.getUserByUsername(username); //Get User information
         int id = user.getId();
         String imagePath = FileUtils.getResourcesPath() + "thumbnails/" + uniquePointer + FileUtils.getExtension(image.getOriginalFilename()); //Init path
         FileUtils.saveImage(image.getBytes(), imagePath); //Save image in given path
