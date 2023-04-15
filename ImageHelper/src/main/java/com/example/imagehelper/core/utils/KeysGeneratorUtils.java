@@ -21,8 +21,8 @@ public class KeysGeneratorUtils {
                     Key privateKey = kp.getPrivate();
                     Key publicKey = kp.getPublic();
 
-                    FileUtils.saveFile(privateKey.getEncoded(), FileUtils.getResourcesPath() + "private.pem");
-                    FileUtils.saveFile(publicKey.getEncoded(), FileUtils.getResourcesPath() + "public.pem");
+                    FileUtils.saveFile(privateKey.getEncoded(), FileUtils.getResourcesPath() + "/certs/"+ "private.pem");
+                    FileUtils.saveFile(publicKey.getEncoded(), FileUtils.getResourcesPath() +"/certs/" +"public.pem");
 
                 }
             } catch (NoSuchAlgorithmException e) {

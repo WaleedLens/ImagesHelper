@@ -62,9 +62,9 @@ public class ImageUploadController {
      * @return
      */
     @PostMapping("/avatar")
-    public ResponseEntity uploadAvatar(@RequestParam("avatar") MultipartFile avatarImage,@RequestHeader("Authorization") String auth) {
+    public ResponseEntity uploadAvatar(@RequestParam("avatar") MultipartFile avatarImage,@RequestParam String albumName) {
 
-        imageUploadService.uploadAvatar(avatarImage,PatternUtils.extractUsername(auth));
+        imageUploadService.uploadAvatar(avatarImage,albumName);
 
         return ResponseEntity.ok().build();
     }

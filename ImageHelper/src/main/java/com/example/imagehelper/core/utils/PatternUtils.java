@@ -11,6 +11,13 @@ import java.util.regex.Pattern;
 
 public class PatternUtils {
     private static Logger log = LoggerFactory.getLogger(PatternUtils.class);
+
+
+    /**
+     * Extract username from JWT payload
+     * @param token
+     * @return
+     */
     public static String extractUsername(String token){
 
         String payload = token.split("\\.")[1];

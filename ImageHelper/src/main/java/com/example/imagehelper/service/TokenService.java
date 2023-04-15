@@ -20,7 +20,7 @@ public class TokenService {
     }
 
     /**
-     * Generate Bearer Token / JWT Token
+     * This method generates JWT token. Note: You can modify expire time , authority and scope if you wish :).
      * @param authentication
      * @return
      */

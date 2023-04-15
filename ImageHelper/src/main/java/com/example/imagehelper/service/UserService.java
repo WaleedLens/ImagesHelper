@@ -23,12 +23,14 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Register new user
+     * Register new user in database.
+     * Note: every user registered new album shall be created for that specific user with name default#USERNAME. Initially All thumbnails/avatars of a user would be saved in their default album.
+     * Note: A user can have more than one album , but It most have at least one album, so default#USERNAME album represents first album for a user
      * @param user
      */
     public void registerUser(User user) {
         userRepository.save(user);
-        Album album = new Album("default",userRepository.getUserByUsername(user.getUsername()).getId());
+        Album album = new Album("default#"+user.getUsername(),userRepository.getUserByUsername(user.getUsername()).getId());
         albumRepository.save(album);
 
         LOG.debug("New User has been created.", user.getUsername());

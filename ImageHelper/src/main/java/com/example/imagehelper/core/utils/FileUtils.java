@@ -30,7 +30,7 @@ public class FileUtils {
     public static String getResourcesPath(){
         URI uri = null;
         try {
-            uri = ClassLoader.getSystemResource("certs").toURI();
+            uri = ClassLoader.getSystemResource("").toURI();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

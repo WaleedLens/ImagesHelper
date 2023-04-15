@@ -18,14 +18,6 @@ public class ImageUploadServiceTest {
 
     @Test
     void uploadSingleImageTest(){
-        UserRepository userRepository = mock(UserRepository.class);
-        ImageRepository imageRepository = mock(ImageRepository.class);
-        ImageUploadService imageUploadService = new ImageUploadServiceImpl(userRepository,imageRepository);
-        User user = new User("firstname","lastname","password","username","metatarsus.ping");
-        user.setId(1);
-        Image img = new Image("pointerTest",1, ImageTypes.THUMBNAIL);
-
-        given(userRepository.findById(user.getId())).willReturn(Optional.of(user));
 
 
 
