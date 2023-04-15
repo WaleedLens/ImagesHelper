@@ -2,6 +2,7 @@ package com.example.imagehelper.service.impl;
 
 import com.example.imagehelper.core.utils.FileUtils;
 import com.example.imagehelper.core.utils.ImageTypes;
+import com.example.imagehelper.core.utils.PatternUtils;
 import com.example.imagehelper.model.Image;
 import com.example.imagehelper.model.User;
 import com.example.imagehelper.repository.AlbumRepository;
@@ -87,7 +88,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
         String description = image.getContentType() + ":" + image.getOriginalFilename() + ":" + image.getSize(); //Get detail description of image
 
-
+        System.out.println(albumName);
         String imagePath = FileUtils.getResourcesPath() + "/thumbnails/" + uniquePointer + FileUtils.getExtension(image.getOriginalFilename()); //Init path
         FileUtils.saveFile(image.getBytes(), imagePath); //Save image in given path
         int albumId = albumRepository.getAlbumByName(albumName).getId();

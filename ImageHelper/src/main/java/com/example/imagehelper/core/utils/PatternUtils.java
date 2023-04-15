@@ -27,4 +27,13 @@ public class PatternUtils {
         log.info("Extracted username: " + username);
         return username;
     }
+
+    /**
+     * Extracts username from album name (e.g., default#root) > returns root.
+     * @param albumName
+     * @return
+     */
+    public static String extractUsernameFromAlbum(String albumName){
+        return albumName.split("#")[1];
+    }
 }

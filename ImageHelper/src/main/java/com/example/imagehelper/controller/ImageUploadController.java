@@ -35,36 +35,38 @@ public class ImageUploadController {
      * @return
      */
     @PostMapping("/single")
-    public ResponseEntity uploadSingleImage(@RequestParam("images") MultipartFile singleImage,@RequestHeader(value="Authorization") String auth) {
+    public ResponseEntity uploadSingleImage(@RequestParam("images") MultipartFile singleImage,@RequestHeader(value="Authorization") String auth,@RequestParam String albumName) {
+        String albumNameString = String.join("#",albumName,PatternUtils.extractUsername(auth));
 
-        imageUploadService.uploadSingleImage(singleImage, PatternUtils.extractUsername(auth));
+        imageUploadService.uploadSingleImage(singleImage,albumNameString);
         return ResponseEntity.ok().build();
     }
 
     /**
-     * Receives Array of images and upload those images to the server.
+     * Endpoint receives array of images from end-user ,JWT token and album name. It Saves those images in given album name & username
      * @param multiImages
-     * @param auth <- Authenticated User information could be extracted from this argument
+     * @param auth <- used to extract username
+     * @param albumName <-images received would be saved in given albumName
      * @return
      */
     @PostMapping("/multi")
-    public ResponseEntity uploadMultiImages(@RequestParam("images") MultipartFile[] multiImages,@RequestHeader("Authorization") String auth) {
-
-        imageUploadService.uploadMultiImages(multiImages,PatternUtils.extractUsername(auth));
+    public ResponseEntity uploadMultiImages(@RequestParam("images") MultipartFile[] multiImages,@RequestHeader("Authorization") String auth,@RequestParam String albumName) {
+        String albumNameString = String.join(albumName,"#",PatternUtils.extractUsername(auth));
+        imageUploadService.uploadMultiImages(multiImages,albumNameString);
 
         return ResponseEntity.ok().build();
     }
 
     /**
-     * Receives single image(avatar) upload it to the server
+     *
      * @param avatarImage
-     * @param auth <- Authenticated User information could be extracted from this argument
+     * @param auth
      * @return
      */
     @PostMapping("/avatar")
-    public ResponseEntity uploadAvatar(@RequestParam("avatar") MultipartFile avatarImage,@RequestParam String albumName) {
+    public ResponseEntity uploadAvatar(@RequestParam("avatar") MultipartFile avatarImage,@RequestHeader("Authorization") String auth) {
 
-        imageUploadService.uploadAvatar(avatarImage,albumName);
+        imageUploadService.uploadAvatar(avatarImage,"default#"+PatternUtils.extractUsername(auth));
 
         return ResponseEntity.ok().build();
     }

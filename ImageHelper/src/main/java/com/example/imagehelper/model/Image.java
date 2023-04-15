@@ -12,18 +12,20 @@ import java.time.LocalDateTime;
 public class Image {
     @Id
     private Integer id;
-    @Column("thumbnailPointer")
-    private String thumbnailPointer;
+    @Column("imagePointer")
+    private String imagePointer;
     @Column("album_id")
     private Integer albumId;
 
     @Column("imageType")
     private ImageTypes imageType;
 
+    @Column("createdAt")
+    private LocalDateTime createdAt;
 
-    public Image(String thumbnailPointer, Integer albumId, ImageTypes imageType) {
-        this.thumbnailPointer = thumbnailPointer;
-      //  this.createdAt = LocalDateTime.now();
+    public Image(String imagePointer, Integer albumId, ImageTypes imageType) {
+        this.imagePointer = imagePointer;
+        this.createdAt = LocalDateTime.now();
         this.imageType = imageType;
         this.albumId = albumId;
     }
@@ -36,12 +38,12 @@ public class Image {
         this.id = id;
     }
 
-    public String getThumbnailPointer() {
-        return thumbnailPointer;
+    public String getImagePointer() {
+        return imagePointer;
     }
 
-    public void setThumbnailPointer(String thumbnailPointer) {
-        this.thumbnailPointer = thumbnailPointer;
+    public void setImagePointer(String imagePointer) {
+        this.imagePointer = imagePointer;
     }
 
     public Integer getAlbumId() {
@@ -52,11 +54,19 @@ public class Image {
         this.albumId = albumId;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
                 "id=" + id +
-                ", thumbnailPointer='" + thumbnailPointer + '\'' +
+                ", imagePointer='" + imagePointer + '\'' +
                 ", albumId=" + albumId +
                 ", imageType=" + imageType +
                 '}';
