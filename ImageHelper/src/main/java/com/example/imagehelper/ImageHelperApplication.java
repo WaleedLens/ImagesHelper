@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class ImageHelperApplication {
 
     public static void main(String[] args) {
+        KeysGeneratorUtils.generateRSAKeys();
         SpringApplication.run(ImageHelperApplication.class, args);
 
 

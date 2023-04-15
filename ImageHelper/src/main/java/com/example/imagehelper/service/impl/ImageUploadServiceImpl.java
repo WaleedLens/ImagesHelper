@@ -84,7 +84,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         User user = userRepository.getUserByUsername(username); //Get User information
         int id = user.getId();
         String imagePath = FileUtils.getResourcesPath() + "thumbnails/" + uniquePointer + FileUtils.getExtension(image.getOriginalFilename()); //Init path
-        FileUtils.saveImage(image.getBytes(), imagePath); //Save image in given path
+        FileUtils.saveFile(image.getBytes(), imagePath); //Save image in given path
         imageRepository.save(new Image(uniquePointer, id, type)); //Save image pointer in db
         log.info("new image uploaded & saved in db successfully!-userID:" + id + " Description:" + description);
     }

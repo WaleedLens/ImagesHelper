@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -23,10 +27,17 @@ public class FileUtils {
      * @return
      * @throws IOException
      */
-    public static String getResourcesPath() throws IOException {
-        Resource resource = new ClassPathResource("");
-        log.info("Resources Path: " + resource.getURL().getPath());
-        return resource.getURL().getPath();
+    public static String getResourcesPath(){
+        URI uri = null;
+        try {
+            uri = ClassLoader.getSystemResource("certs").toURI();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        String mainPath = Paths.get(uri).toString();
+
+
+        return mainPath;
     }
 
     /**
@@ -86,7 +97,7 @@ public class FileUtils {
      * @param contentImage
      * @param path
      */
-    public static void saveImage(byte[] contentImage, String path) {
+    public static void saveFile(byte[] contentImage, String path) {
 
 
         try (FileOutputStream out = new FileOutputStream(new File(path))) {
@@ -106,15 +117,11 @@ public class FileUtils {
      * @return
      */
     public static String[] contentDirectory(String name) {
-        try {
-            System.out.println(getResourcesPath() + name);
-            String[] content = new File(getResourcesPath() +"/"+ name).list();
-            System.out.println("Number of files " + content.length + " in " + name + " directory.");
-            return content;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//C:\Users\PC\Documents\GitHub\swe363\ImagesHelper\ImageHelper\target\classes\avatars
+        System.out.println(getResourcesPath() + name);
+        String[] content = new File(getResourcesPath() +"/"+ name).list();
+        System.out.println("Number of files " + content.length + " in " + name + " directory.");
+        return content;
+        //C:\Users\PC\Documents\GitHub\swe363\ImagesHelper\ImageHelper\target\classes\avatars
     }
 
 
