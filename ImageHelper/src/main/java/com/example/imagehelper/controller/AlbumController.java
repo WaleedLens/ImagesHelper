@@ -69,7 +69,7 @@ public class AlbumController {
      * @param token
      * @return
      */
-    @PutMapping("/newAlbum")
+    @PutMapping("/updateAlbum")
     public ResponseEntity updateAlbumName(@RequestParam String newName,@RequestParam String oldName,@RequestHeader("Authorization") String token){
         albumService.updateAlbumName(PatternUtils.extractUsername(token),oldName,newName);
         return ResponseEntity.ok().build();
