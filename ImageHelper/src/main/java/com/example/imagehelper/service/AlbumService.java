@@ -58,10 +58,11 @@ public class AlbumService {
      * This method deletes album given its name and username. Note. DEFAULT ALBUMS CANNOT BE DELETED!!
      * @param username
      * @param name
-     * @return true if delete success, false otherwise
      */
-    public boolean deleteAlbum(String username,String name){
-        return false;
+    public void deleteAlbum(String username,String name){
+
+        albumRepository.deleteAlbumByName(String.join("#",name,username));
+
     }
 
 
