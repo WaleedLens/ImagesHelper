@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface AlbumRepository extends CrudRepository<Album,Integer> {
 
     Album getAlbumByName(String name);
+    void deleteAlbumByName(String name);
 
 }

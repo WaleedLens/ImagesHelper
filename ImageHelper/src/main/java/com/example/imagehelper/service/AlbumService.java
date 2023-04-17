@@ -30,12 +30,11 @@ public class AlbumService {
      * @param name
      * @return true if new album created successfully, false otherwise
      */
-    public boolean createNewAlbum(String username,String name){
+    public void createNewAlbum(String username,String name){
         String newAlbumName = String.join("#",name,username);
         int userId = userRepository.getUserByUsername(username).getId();
         Album album = new Album(newAlbumName,userId);
         albumRepository.save(album);
-        return true/*Why boolean???!!*/;
     }
 
     /**
@@ -45,10 +44,14 @@ public class AlbumService {
      * @param username <- I will use username to specify which album to update.[NOTE: Album names can be duplicated for DIFFERENT users]
      * @return true if update success, false otherwise.
      */
-    public boolean updateAlbumName(String username,String oldName,String newName){
-        //TODO:update album name
-        
-        return false;
+    public void updateAlbumName(String username,String oldName,String newName){
+
+        String oldAlbumName = String.join("#",oldName,username);
+        String newAlbumName = String.join("#",newName,username);
+        Album album = albumRepository.getAlbumByName(oldAlbumName);
+        album.setName(newAlbumName);
+        albumRepository.save(album);
+
     }
 
     /**
