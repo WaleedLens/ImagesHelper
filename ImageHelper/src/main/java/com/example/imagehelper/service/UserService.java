@@ -22,6 +22,14 @@ public class UserService implements UserDetailsService {
         this.albumRepository = albumRepository;
     }
 
+    public boolean updatePassword(String oldPassword,String username,String newPassword){
+        return false;
+    }
+
+    private void sendConfirmationNewPasswordEmail(String email){
+
+    }
+
     /**
      * Register new user in database.
      * Note: every user registered new album shall be created for that specific user with name default#USERNAME. Initially All thumbnails/avatars of a user would be saved in their default album.

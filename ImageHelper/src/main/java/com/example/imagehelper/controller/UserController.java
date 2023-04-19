@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -31,4 +28,35 @@ public class UserController {
         userService.registerUser(user);
         return ResponseEntity.ok().build();
     }
+
+
+    /**
+     * TODO: We need to initiate smtp.
+     */
+
+    /**
+     * Update password of given username.
+     *
+     * @param username
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+
+    @PostMapping("/updatepassword")
+    public ResponseEntity updatePassword(@RequestParam String username,@RequestParam String oldPassword,@RequestParam String newPassword){
+        if(userService.updatePassword(oldPassword,username,newPassword)){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @GetMapping("/password/confirmation")
+    public ResponseEntity passwordEmailConfirmation(){
+        return null;
+    }
+
+
 }
