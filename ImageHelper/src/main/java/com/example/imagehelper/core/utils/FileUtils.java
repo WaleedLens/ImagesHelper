@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -124,6 +125,17 @@ public class FileUtils {
         //C:\Users\PC\Documents\GitHub\swe363\ImagesHelper\ImageHelper\target\classes\avatars
     }
 
+
+    public static void removeAvatar(String avatarPointer){
+        try {
+            Files.deleteIfExists(Paths.get(getResourcesPath() + "avatar/" + avatarPointer));
+            log.info(avatarPointer + " has been removed.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
     public static String getExtension(String filename) {
 
