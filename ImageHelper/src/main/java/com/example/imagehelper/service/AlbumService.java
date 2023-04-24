@@ -6,6 +6,7 @@ import com.example.imagehelper.model.Image;
 import com.example.imagehelper.repository.AlbumRepository;
 import com.example.imagehelper.repository.ImageRepository;
 import com.example.imagehelper.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
  */
 @Service
 public class AlbumService {
+
+
     private final AlbumRepository albumRepository;
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;

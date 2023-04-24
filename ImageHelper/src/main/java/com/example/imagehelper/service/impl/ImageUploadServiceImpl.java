@@ -46,8 +46,6 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     /**

@@ -6,10 +6,7 @@ import com.example.imagehelper.service.ImageService;
 import java.util.List;
 
 public class ImageServiceImpl implements ImageService {
-    @Override
-    public boolean deleteImage(String imagePointer) {
-        return false;
-    }
+
 
     @Override
     public List<Image> searchImagesByDate(String date) {

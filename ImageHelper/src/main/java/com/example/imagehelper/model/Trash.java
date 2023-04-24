@@ -37,4 +37,12 @@ public class Trash {
     public void setPointer(String pointer) {
         this.pointer = pointer;
     }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 }

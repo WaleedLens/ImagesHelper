@@ -6,13 +6,6 @@ import java.util.List;
 
 public interface ImageService {
 
-    /**
-     * delete a given imagePointer
-     * Note.It will be deleted from Database AND from avatars OR thumbnails directory
-     * @param imagePointer
-     * @return
-     */
-    boolean deleteImage(String imagePointer);
 
     /**
      * Search for images in given date bounded
