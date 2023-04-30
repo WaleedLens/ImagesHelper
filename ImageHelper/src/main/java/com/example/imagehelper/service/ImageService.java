@@ -12,14 +12,14 @@ public interface ImageService {
      * @param date (i.e., 2019/5/14:2023/1/2) Translates into -> from 2019/5/14 to 2023/1/2
      * @return List of images
      */
-    List<Image> searchImagesByDate(String date);
+    List<Image> searchImagesByDate(String date,String username);
 
     /**
      * Get image
      * @param imagePointer
      * @return an image
      */
-    Image getImage(String imagePointer);
+    Image getImage(String imagePointer,String username);
 
 
 

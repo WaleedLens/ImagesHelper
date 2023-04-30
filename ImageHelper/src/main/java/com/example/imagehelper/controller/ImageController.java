@@ -1,11 +1,12 @@
 package com.example.imagehelper.controller;
 
+import com.example.imagehelper.core.utils.PatternUtils;
+import com.example.imagehelper.model.Image;
+import com.example.imagehelper.service.ImageService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * The aim of this class is getImages stored in database by number of ways:
@@ -16,22 +17,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/image/")
 public class ImageController {
 
+    private final ImageService imageService;
 
-    @GetMapping("/getImage")
-    public ResponseEntity getImage(@RequestBody String imagePointer) {
-        return null;
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     /**
+     * Returns image metadata of given image pointer
+     *
+     * @param imagePointer
+     * @return
+     */
+    @GetMapping("/getImage")
+    public String getImage(@RequestBody String imagePointer, @RequestHeader("Authorization") String token) {
+
+        return imageService.getImage(imagePointer, PatternUtils.extractUsername(token)).toString();
+    }
+    /**
      * Receives Date in string format of two dates, and return List of images in given interval(two dates) to a given user.
+     *
      * @param stringDate
-     * @param authentication <- To extract Authenticated user information
+     * @param token      <- To extract Authenticated user information(e.g., username ).
      * @return
      */
     @GetMapping("/findImagesByDate")
-    public ResponseEntity findImagesByDate(@RequestBody String stringDate,Authentication authentication) {
-
-        return null;
+    public List<Image> findImagesByDate(@RequestBody String stringDate, @RequestHeader("Authorization") String token) {
+        return imageService.searchImagesByDate(stringDate, PatternUtils.extractUsername(token));
     }
 
 }

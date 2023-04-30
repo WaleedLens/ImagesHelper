@@ -76,5 +76,4 @@ public class AlbumService {
         System.out.println("Count: "+count);
         return imagesOfAlbum;
     }
-
 }
